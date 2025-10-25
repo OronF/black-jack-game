@@ -1,38 +1,73 @@
+/* General app layout */
 .App {
+  background: radial-gradient(circle at center, #064420, #032d13, #021b0b);
+  height: 100vh;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Header styling */
+.App-header {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+  padding-top: 30px;
+  letter-spacing: 2px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* Optional: animate glow for casino effect */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #ffd700, 0 0 20px #ffea00, 0 0 30px #ffd700;
+  }
+  to {
+    text-shadow: 0 0 20px #fff176, 0 0 40px #ffd700, 0 0 60px #ffea00;
   }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* Integrate MoneyCount styling */
+.money-count {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  margin: 0;
+  padding: 12px 20px;
+  background: linear-gradient(180deg, #1b5e20, #0b3d0b);
+  border: 2px solid #0a290a;
+  border-radius: 10px;
+  width: fit-content;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.App-link {
-  color: #61dafb;
+.input-money-count {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  color: #ffd700;
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 120px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input-money-count:disabled {
+  opacity: 1;
+  cursor: default;
 }
+
+
+

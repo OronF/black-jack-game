@@ -1,0 +1,96 @@
+/* Full-screen centering */
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.coins-panal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 20px;
+  transform: translateY(-50px); 
+}
+
+/* Coin list layout */
+.coins-panal {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 20px;
+}
+
+/* Base coin style */
+.coin {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 4px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  position: relative;
+  text-shadow: 0 0 3px rgba(0,0,0,0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Chip hover effect */
+.coin:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+
+/* Edge patterns for chips */
+.coin::before,
+.coin::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+
+.coin::before {
+  width: 100%;
+  height: 100%;
+  background: repeating-conic-gradient(white 0 5deg, transparent 5deg 30deg);
+  opacity: 0.2;
+}
+
+.coin::after {
+  width: 90%;
+  height: 90%;
+  border: 2px dashed white;
+}
+
+/* Different colors for each coin */
+.coin:nth-child(1) { background: #c0392b; } /* Red 5$ */
+.coin:nth-child(2) { background: #2980b9; } /* Blue 10$ */
+.coin:nth-child(3) { background: #27ae60; } /* Green 25$ */
+.coin:nth-child(4) { background: #2c3e50; } /* Black 100$ */
+.coin:nth-child(5) { background: #8e44ad; } /* Purple 500$ */
+
+/* All In button (inline with coins) */
+.all-in-button {
+  background: linear-gradient(180deg, #ffd700, #b8860b);
+  border: 2px solid #fff5b7;
+  color: black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.all-in-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(255, 215, 0, 0.6);
+}
+

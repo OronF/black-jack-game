@@ -1,0 +1,53 @@
+.card {
+  width: 130px;
+  height: 190px;
+  perspective: 1000px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Front & Back base styles */
+.front,
+.back {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  position: absolute;
+  backface-visibility: hidden;
+  transition: transform 0.7s ease;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* FRONT SIDE (face of the card) */
+.front {
+  background: white;
+  border: 2px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+  font-family: "Georgia", serif;
+}
+
+.rank {
+  font-size: 28px;
+  font-weight: bold;
+  color: black;
+}
+
+.suit {
+  font-size: 42px;
+  align-self: flex-end;
+}
+
+/* BACK SIDE (card back pattern) */
+.back {
+  background: radial-gradient(circle at center, #2c2c2c 0%, #1a1a1a 100%);
+  border: 2px solid #444;
+  transform: rotateY(180deg);
+  background-image: repeating-linear-gradient(
+    45deg,
+    #111 0 10px,
+    #222 10px 20px
+  );
+}
