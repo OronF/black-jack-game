@@ -1,16 +1,18 @@
-/* Full-screen centering */
+/* Reset */
 body, html {
   height: 100%;
   margin: 0;
+  background: radial-gradient(circle at center, #006400 40%, #013220 100%);
+  font-family: 'Poppins', sans-serif;
 }
 
+/* Coins panel container */
 .coins-panal-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   gap: 20px;
-  transform: translateY(-50px); 
+  margin-top: 200px; /* move panel down slightly */
 }
 
 /* Coin list layout */
@@ -22,7 +24,7 @@ body, html {
   gap: 20px;
 }
 
-/* Base coin style */
+/* Casino chips style */
 .coin {
   width: 70px;
   height: 70px;
@@ -41,41 +43,39 @@ body, html {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Chip hover effect */
 .coin:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 18px rgba(0,0,0,0.6);
 }
 
-/* Edge patterns for chips */
-.coin::before,
-.coin::after {
+/* Edge pattern for casino look */
+.coin::before {
   content: "";
   position: absolute;
-  border-radius: 50%;
-}
-
-.coin::before {
   width: 100%;
   height: 100%;
+  border-radius: 50%;
   background: repeating-conic-gradient(white 0 5deg, transparent 5deg 30deg);
   opacity: 0.2;
 }
 
 .coin::after {
+  content: "";
+  position: absolute;
   width: 90%;
   height: 90%;
+  border-radius: 50%;
   border: 2px dashed white;
 }
 
-/* Different colors for each coin */
+/* Coin colors */
 .coin:nth-child(1) { background: #c0392b; } /* Red 5$ */
 .coin:nth-child(2) { background: #2980b9; } /* Blue 10$ */
 .coin:nth-child(3) { background: #27ae60; } /* Green 25$ */
 .coin:nth-child(4) { background: #2c3e50; } /* Black 100$ */
 .coin:nth-child(5) { background: #8e44ad; } /* Purple 500$ */
 
-/* All In button (inline with coins) */
+/* All In button */
 .all-in-button {
   background: linear-gradient(180deg, #ffd700, #b8860b);
   border: 2px solid #fff5b7;
@@ -92,5 +92,141 @@ body, html {
 .all-in-button:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 18px rgba(255, 215, 0, 0.6);
+}
+
+/* --- Start Button Section --- */
+.button-continer {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.startBtn {
+  background: linear-gradient(180deg, #28a745, #1d6b2e);
+  border: 2px solid #9aff9a;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 14px 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(0, 255, 100, 0.5);
+  transition: all 0.2s ease;
+}
+
+.startBtn:hover:not(:disabled) {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(0, 255, 100, 0.9);
+}
+
+.startBtn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.startBtn:disabled {
+  background: gray;
+  color: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  border-color: #777;
+}
+
+/* Full-screen overlay that darkens the background */
+.pop-up-overlay {
+  position: fixed; /* stays even if you scroll */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  /* Dark transparent background */
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+
+  /* Center pop-up */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999; /* makes sure it’s on top of everything */
+}
+
+/* The pop-up box itself */
+.pop-up {
+  background: #013220;
+  border: 2px solid #00ff88;
+  border-radius: 15px;
+  padding: 30px 40px;
+  box-shadow: 0 0 25px rgba(0, 255, 100, 0.5);
+  text-align: center;
+  color: white;
+  width: 350px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Title */
+.pop-up-header {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #00ff88;
+  text-shadow: 0 0 8px rgba(0, 255, 100, 0.8);
+}
+
+/* Text */
+.pop-up p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+/* Buttons container */
+.btns {
+  display: flex;
+  justify-content: space-around;
+  gap: 15px;
+}
+
+/* Cancel button */
+.btn-cancel {
+  background-color: #444;
+  color: #ddd;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: bold;
+}
+.btn-cancel:hover {
+  background-color: #666;
+}
+
+/* Approve button */
+.btn-approve {
+  background: linear-gradient(180deg, #00ff88, #00cc66);
+  color: #013220;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px rgba(0, 255, 100, 0.6);
+}
+.btn-approve:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 255, 100, 0.9);
+}
+
+/* Smooth appear animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 

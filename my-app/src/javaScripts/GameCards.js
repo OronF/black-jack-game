@@ -13,7 +13,7 @@ const gameCards = [
     { key: "jack", value: 10 },
     { key: "queen", value: 10 },
     { key: "king", value: 10 },
-    { key: "ace", value: 11 }
+    { key: "ace", fvalue: 11, svalue: 1 }
 ];
 
 const suits = [
