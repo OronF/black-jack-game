@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../css/CoinsPanal.css';
 
-function CoinsPanal() {
+function CoinsPanal({ count }) {
     const [isPopUp, setPopUp] = useState(false);
     
 
@@ -15,25 +15,30 @@ function CoinsPanal() {
                     <li key="4" className="coin">100$</li>
                     <li key="5" className="coin">500$</li>
                 </ul>
-                <button className="all-in-button" onclick={}>All In!</button>
+                <button
+                  className="all-in-button"
+                  onClick={() => setPopUp(true)}
+                >
+                  All In!
+                </button>
+
+                {isPopUp && <AllInPopUp onClose={() => setPopUp(false)} />}
             </div>
-            <div className="button-continer">
-                <StartButton disabled={true} />
-            </div>
+            
         </>    
     );
 }
 
-function StartButton({disabled}) {
+export function StartButton({disabled, onStart}) {
   return (
-    <button disabled={disabled} className="startBtn">start</button>
+    <button disabled={disabled} className="startBtn" onClick={onStart}>start</button>
   );
 }
 
-function AllInPopUp() {
+function AllInPopUp({ onClose }) {
     return (
-        <>
-            <div className="pop-up">
+        <div className="pop-up-overlay" onClick={onClose}>
+            <div className="pop-up" onClick={e => e.stopPropagation()}>
                 <header className="pop-up-header">
                     All In
                 </header>
@@ -41,12 +46,12 @@ function AllInPopUp() {
                 <p>Are you sure you want to go all in?</p>
 
                 <div className="btns">
-                    <button className="btn-cancel">cancel</button>
+                    <button className="btn-cancel" onClick={onClose}>cancel</button>
                     <button className="btn-approve">yeah baby</button>
                 </div>
             </div>
-        </>
-    )
+        </div>
+    );
 }
 
 export default CoinsPanal;
