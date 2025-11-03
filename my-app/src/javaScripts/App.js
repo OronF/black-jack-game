@@ -5,8 +5,16 @@ import { StartButton } from './CoinsPanal.js';
 import { useState } from 'react';
 import Game from './Game.js';
 
-function App() {
+function App({ playerMoney }) {
   const [startGame, setStartGame] = useState(false);
+  const [needMoney, setNeedMoney] = useState(false);
+
+  let playerMoneyTmp = playerMoney;
+
+  function onClose() {
+    playerMoneyTmp = 100;
+    setNeedMoney(true);
+  }
   
   function onStart() {
     setStartGame(true);
@@ -16,7 +24,7 @@ function App() {
     <div className="App">
       {!startGame ? <>
         <Header />
-        <MoneyCount count={1000} />
+        <MoneyCount count={playerMoneyTmp} needMoney={needMoney} onClose={onClose} />
         <CoinsPanal/>
         <div className="button-continer">
         <StartButton disabled={false} onStart={onStart}/>

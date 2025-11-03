@@ -1,14 +1,11 @@
-//import { useState } from 'react';
 import '../css/MoneyCount.css';
 
-function MoneyCount({ count }) {
-    //const [needMoney, setNeedMoney] = useState(false);
-//{!needMoney && <Get100$OnTheHouse onClose={() => setNeedMoney(true)}/>}
+function MoneyCount({ playerMoeny, needMoney, onClose }) {
     return (
         <>
-            
+            {!needMoney && <Get100$OnTheHouse onClose={onClose}/>}
             <div className="money-count">
-                <input className="input-money-count" value={`${count}$`} disabled={true}/>
+                <input className="input-money-count" value={`${playerMoeny}$`} disabled={true}/>
             </div>
         </>
         
