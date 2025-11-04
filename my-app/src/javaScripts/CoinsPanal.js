@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import '../css/CoinsPanal.css';
 
-function CoinsPanal({ count }) {
+function CoinsPanal({ selectedMoney, coinsOnClick, handleClear, handleAllIn}) {
     const [isPopUp, setPopUp] = useState(false);
-    
 
     return (
         <>
+            <div className="selected-money">You wanna play with: {selectedMoney}$</div>
             <div className="coins-panal-container">
                 <ul className="coins-panal">
-                    <li key="1" className="coin">5$</li>
-                    <li key="2" className="coin">10$</li>
-                    <li key="3" className="coin">25$</li>
-                    <li key="4" className="coin">100$</li>
-                    <li key="5" className="coin">500$</li>
+                    <li key="1" className="coin" onClick={() => coinsOnClick(5)}>5$</li>
+                    <li key="2" className="coin" onClick={() => coinsOnClick(10)}>10$</li>
+                    <li key="3" className="coin" onClick={() => coinsOnClick(25)}>25$</li>
+                    <li key="4" className="coin" onClick={() => coinsOnClick(100)}>100$</li>
+                    <li key="5" className="coin" onClick={() => coinsOnClick(500)}>500$</li>
                 </ul>
                 <button
                   className="all-in-button"
@@ -22,7 +22,9 @@ function CoinsPanal({ count }) {
                   All In!
                 </button>
 
-                {isPopUp && <AllInPopUp onClose={() => setPopUp(false)} />}
+                <button className="clear-btn" onClick={handleClear}>Clear</button>
+
+                {isPopUp && <AllInPopUp handleAllIn={handleAllIn} onClose={() => setPopUp(false)} />}
             </div>
             
         </>    
@@ -35,7 +37,7 @@ export function StartButton({disabled, onStart}) {
   );
 }
 
-function AllInPopUp({ onClose }) {
+function AllInPopUp({ handleAllIn, onClose }) {
     return (
         <div className="pop-up-overlay" onClick={onClose}>
             <div className="pop-up" onClick={e => e.stopPropagation()}>
@@ -47,7 +49,7 @@ function AllInPopUp({ onClose }) {
 
                 <div className="btns">
                     <button className="btn-cancel" onClick={onClose}>cancel</button>
-                    <button className="btn-approve">yeah baby</button>
+                    <button className="btn-approve" onClick={() => {handleAllIn(); onClose()}}>yeah baby</button>
                 </div>
             </div>
         </div>

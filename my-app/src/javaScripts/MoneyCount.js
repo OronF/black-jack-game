@@ -3,7 +3,7 @@ import '../css/MoneyCount.css';
 function MoneyCount({ playerMoeny, needMoney, onClose }) {
     return (
         <>
-            {!needMoney && <Get100$OnTheHouse onClose={onClose}/>}
+            {needMoney && <Get100$OnTheHouse onClose={onClose}/>}
             <div className="money-count">
                 <input className="input-money-count" value={`${playerMoeny}$`} disabled={true}/>
             </div>

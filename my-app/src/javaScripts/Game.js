@@ -1,14 +1,16 @@
 import MoneyCount from './MoneyCount.js';
 import { Header } from './App.js';
+import App from './App.js'
 import Card from './Card.js';
 import '../css/Game.css';
 import { gameCards, suits } from './GameCards.js';
 import { useState, useEffect } from 'react';
 
-function Game({ playerMoeny }) {
+function Game({ playerMoeny, moneySelected }) {
     const [dealerCards, setDealerCards] = useState([randomCard(false), randomCard(true)]);
     const [playerCards, setPlayerCards] = useState([randomCard(false), randomCard(false)]);
-    const [result, setResult] = useState(null);
+    const [result, setResult] = useState([null, moneySelected]);
+    const [endGame, setEndGame] = useState(false);
 
     let dealerSum = sumCards(dealerCards);
     let playerSum = sumCards(playerCards);
@@ -22,13 +24,15 @@ function Game({ playerMoeny }) {
         dealerCardsTmp[1].flipped = false;
 
         if (playerSum === 21 && playerCards.length === 2) {
-            setResult("win");
+            setResult(["win", playerMoeny + moneySelected * 1.5]);
+            setEndGame(flag => !flag);
             return;
         }
 
         if (dealerSum === 21 && dealerCards.length === 2) {
             setDealerCards(dealerCardsTmp);
-            setResult("lose");
+            setResult(["lose", 0]);
+            setEndGame(flag => !flag);
             return;
         }
 
@@ -42,13 +46,14 @@ function Game({ playerMoeny }) {
         console.log(dealerSum);
 
         if (playerSum > 21 || (dealerSum > playerSum && dealerSum < 22)) {
-            setResult("lose");
+            setResult(["lose", playerMoeny - moneySelected]);
         } else if (playerSum === dealerSum) {
-            setResult("push");
+            setResult(["push", playerMoeny]);
         } else {
-            setResult("win");
+            setResult(["win", playerMoeny + moneySelected]);
         }
 
+        setEndGame(flag => !flag);
     }
 
     function handleDouble() {
@@ -58,19 +63,23 @@ function Game({ playerMoeny }) {
             
             return [...pc, newCard];
         });
-        console.log(playerSum);
         handleStand();
     } 
 
+    //{result[0] && <WinLoseScreen result={result[0]} onClose={() => setResult(null)} />}
     return (
-    <>
-        {result && <WinLoseScreen result={result} onClose={() => setResult(null)} />}
-        <Header />
-        <MoneyCount playerMoeny={playerMoeny} />
-        <Dealer cards={dealerCards} />
-        <PlayerOptions handleHit={handleHit} playerSum={playerSum} handleStand={handleStand} handleDouble={handleDouble}/>
-        <Player cards={playerCards}/>
-    </>);
+        <>
+        
+            {!endGame ? <>
+                <Header />
+                <MoneyCount playerMoeny={playerMoeny} />
+                <Dealer cards={dealerCards} />
+                <PlayerOptions handleHit={handleHit} playerSum={playerSum} handleStand={handleStand} handleDouble={handleDouble}/>
+                <Player cards={playerCards}/>
+                </> : <App playerMoney={result[1]}/>
+            }
+        </>
+    );
 }
 
 function sumCards(cardsArray) {

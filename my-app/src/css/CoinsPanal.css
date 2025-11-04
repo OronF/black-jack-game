@@ -230,3 +230,62 @@ body, html {
   }
 }
 
+/* --- Clear Button --- */
+.clear-btn {
+  background: linear-gradient(180deg, #ff4444, #b22222); /* red gradient for 'clear' */
+  border: 2px solid #ffaaaa;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 12px 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
+  transition: all 0.2s ease;
+
+  /* keep it on the same horizontal line as the other controls */
+  margin-top: 0;        /* removed extra top spacing */
+  align-self: center;   /* vertically center inside the flex container */
+  margin-left: 12px;    /* small gap from previous button */
+}
+
+.clear-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+}
+
+.clear-btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+}
+
+.clear-btn:disabled {
+  background: gray;
+  border-color: #777;
+  color: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Selected money pill — visually moved down without affecting document flow */
+.selected-money {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 8px;
+  padding: 10px 16px;   /* slightly larger padding to match bigger text */
+  font-size: 1.15rem;   /* increased from 1rem */
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  width: fit-content;
+
+  /* move it down visually without changing flow so buttons stay where they are */
+  position: relative;
+  transform: translateY(110px); /* adjust this value to control the distance */
+  z-index: 2;
+  transition: transform 0.18s ease;
+}
