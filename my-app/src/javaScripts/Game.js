@@ -4,7 +4,7 @@ import App from './App.js'
 import Card from './Card.js';
 import '../css/Game.css';
 import { gameCards, suits } from './GameCards.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function Game({ playerMoeny, moneySelected }) {
     const [dealer, setDealer] = useState(() => {
@@ -27,6 +27,20 @@ function Game({ playerMoeny, moneySelected }) {
             }, 1500);
         }
     }
+
+    useEffect(() => {
+        if (dealer.dealerCards.length === 2 && dealer.sum === 21) {
+            setDealer(d => {
+                const dealerCardsTmp = d.dealerCards.map(c => ({ ...c }));
+                if (dealerCardsTmp[1]) dealerCardsTmp[1].flipped = false;
+                return { dealerCards: dealerCardsTmp, sum: sumCards(dealerCardsTmp) };
+            });
+            
+            setTimeout(() => {
+                setResult({ gameState: "lose", money: playerMoeny - moneySelected, endGame: true });
+            }, 1500);
+        }
+    }, [dealer.dealerCards.length, dealer.sum, playerMoeny, moneySelected]);
 
     function handleStand() {
         setDealer(d => {
@@ -70,7 +84,6 @@ function Game({ playerMoeny, moneySelected }) {
     }
 
     function handleDouble() {
-        // implement later
         const playerCardsTmp = [...player.playerCards, randomCard(true)];
         const playerSumTmp = sumCards(playerCardsTmp);
         setPlayer({ playerCards: playerCardsTmp, sum: playerSumTmp });
@@ -130,7 +143,7 @@ function Game({ playerMoeny, moneySelected }) {
                 <Header />
                 <MoneyCount playerMoeny={playerMoeny} />
                 <Dealer cards={dealer.dealerCards} />
-                <PlayerOptions handleHit={handleHit} playerSum={player.sum} handleStand={handleStand} handleDouble={handleDouble} moneySelected={moneySelected}/>
+                <PlayerOptions handleHit={handleHit} playerSum={player.sum} handleStand={handleStand} handleDouble={handleDouble} moneySelected={moneySelected} playerMoeny={playerMoeny}/>
                 <Player cards={player.playerCards}/>
                 </> : <App playerMoney={result.money}/>
             }
@@ -177,10 +190,11 @@ function Dealer({ cards }) {
     );
 }
 
-function PlayerOptions({ handleHit, playerSum, handleStand, handleDouble, moneySelected }) {
+function PlayerOptions({ handleHit, playerSum, handleStand, handleDouble, moneySelected, playerMoeny }) {
     let disabledHit = false;
     let disabledStand = false;
-    let disabledDouble = false;
+    let disabledDouble = true;
+    if (playerMoeny >= moneySelected * 2) disabledDouble = false;
     if (playerSum > 21) { disabledHit = true; disabledStand = true; disabledDouble = true}
 
     return (
